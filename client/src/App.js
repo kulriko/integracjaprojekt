@@ -7,6 +7,7 @@ const App = () => {
   const [accessToken, setAccessToken] = useState('');
   const [showLoginForm, setShowLoginForm] = useState(false);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [notes, setNotes] = useState([]); // Dodaj stan 'notes' i funkcję 'setNotes'
 
   const handleLogin = async (username, password, accessToken) => {
     try {
@@ -65,7 +66,8 @@ const App = () => {
 
       if (response.ok) {
         console.log('Dodano notatkę');
-        // Tutaj możesz dodać odpowiednią logikę, jeśli chcesz zaktualizować listę notatek itp.
+        const newNote = await response.json();
+        setNotes((prevNotes) => [...prevNotes, newNote]);
       } else {
         console.error('Błąd dodawania notatki');
       }
@@ -73,6 +75,7 @@ const App = () => {
       console.error('Wystąpił błąd podczas dodawania notatki', error);
     }
   };
+
 
   return (
     <div>
@@ -90,7 +93,7 @@ const App = () => {
           <button onClick={() => setShowRegisterForm(true)}>Zarejestruj</button>
         </div>
       )}
-      {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} />}
+      {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} notes={notes} />}
     </div>
   );
 };

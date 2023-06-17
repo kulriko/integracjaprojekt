@@ -67,14 +67,16 @@ app.post(
     }
 
     const { title, content } = req.body;
+    const userId = req.user.id;
 
     try {
-      const note = new Note({ title, content });
+      const note = new Note({ title, content, userId }); // Dodajemy userId
       await note.save();
       res.json(note);
     } catch (err) {
       res.status(500).json({ error: 'Wystąpił błąd podczas tworzenia notatki' });
     }
+
   }
 );
 

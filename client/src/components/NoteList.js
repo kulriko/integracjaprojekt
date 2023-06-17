@@ -38,7 +38,7 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
         const updatedNotes = notes.map((note) =>
           note._id === data._id ? data : note
         );
-        setNotes(updatedNotes);
+        setNotes((prevNotes) => [...prevNotes, newNote]);
         setEditedNote({ id: '', title: '', content: '' });
       })
       .catch((error) => console.log(error));
@@ -56,7 +56,7 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
       .then((data) => {
         if (data.success) {
           const updatedNotes = notes.filter((note) => note._id !== deletedNote._id);
-          setNotes(updatedNotes);
+          setNotes((prevNotes) => [...prevNotes, newNote]);
           setDeletedNote(null);
         }
       })
@@ -89,14 +89,21 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
           ))}
         </ul>
       )}
-      {notes.map((note) => (
-        <div key={note._id}>
-          <h3>{note.title}</h3>
-          <p>{note.content}</p>
-          <button onClick={() => handleEditNote(note)}>Edytuj</button>
-          <button onClick={() => handleDeleteNote(note)}>Usuń</button>
-        </div>
-      ))}
+      {notes.map((note) => {
+        if (note.userId === accessToken) {
+          return (
+            <div key={note._id}>
+              <h3>{note.title}</h3>
+              <p>{note.content}</p>
+              <button onClick={() => handleEditNote(note)}>Edytuj</button>
+              <button onClick={() => handleDeleteNote(note)}>Usuń</button>
+            </div>
+          );
+        } else {
+          return null;
+        }
+      })}
+
       {editedNote.id && (
         <div>
           <input
