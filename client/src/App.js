@@ -23,7 +23,7 @@ const App = () => {
         setAccessToken(data.accessToken);
         setShowLoginForm(false);
       } else {
-        console.error('Błąd logdsadowania');
+        console.error('Błąd logowania');
       }
     } catch (error) {
       console.error('Wystąpił błąd podczas logowania', error);
@@ -64,7 +64,7 @@ const App = () => {
       });
 
       if (response.ok) {
-        console.log('Dodano notatkdsadsaę');
+        console.log('Dodano notatkę');
         // Tutaj możesz dodać odpowiednią logikę, jeśli chcesz zaktualizować listę notatek itp.
       } else {
         console.error('Błąd dodawania notatki');
