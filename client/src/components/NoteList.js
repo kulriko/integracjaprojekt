@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const NoteList = ({ notes, accessToken }) => {
+const NoteList = ({ notes, accessToken, handleAddNote }) => {
   const [newNote, setNewNote] = useState({ title: '', content: '' });
   const [editedNote, setEditedNote] = useState({ id: '', title: '', content: '' });
   const [deletedNote, setDeletedNote] = useState(null);
@@ -17,30 +17,30 @@ const NoteList = ({ notes, accessToken }) => {
     setEditedNote((prevNote) => ({ ...prevNote, [name]: value }));
   };
 
-  const handleAddNote = () => {
-    fetch('http://localhost:3001/api/notes', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${accessToken}`, // Dodaj nagłówek Authorization z tokenem JWT
-      },
-      body: JSON.stringify(newNote),
-    })
-      .then((res) => {
-        if (res.status === 400) {
-          return res.json().then((data) => setFormErrors(data.errors));
-        }
-        return res.json();
-      })
-      .then((data) => {
-        if (data) {
-          setNotes((prevNotes) => [...prevNotes, data]);
-          setNewNote({ title: '', content: '' });
-          setFormErrors([]);
-        }
-      })
-      .catch((error) => console.log(error));
-  };
+  // const handleAddNote = () => {
+  //   fetch('http://localhost:3001/api/notes', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': `Bearer ${accessToken}`, // Dodaj nagłówek Authorization z tokenem JWT
+  //     },
+  //     body: JSON.stringify(newNote),
+  //   })
+  //     .then((res) => {
+  //       if (res.status === 400) {
+  //         return res.json().then((data) => setFormErrors(data.errors));
+  //       }
+  //       return res.json();
+  //     })
+  //     .then((data) => {
+  //       if (data) {
+  //         setNotes((prevNotes) => [...prevNotes, data]);
+  //         setNewNote({ title: '', content: '' });
+  //         setFormErrors([]);
+  //       }
+  //     })
+  //     .catch((error) => console.log(error));
+  // };
 
   const handleEditNote = (note) => {
     setEditedNote({ id: note._id, title: note.title, content: note.content });
