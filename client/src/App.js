@@ -64,7 +64,7 @@ const App = () => {
       });
 
       if (response.ok) {
-        console.log('Dodano notatkę');
+        console.log('Dodano notatkdsadsaę');
         // Tutaj możesz dodać odpowiednią logikę, jeśli chcesz zaktualizować listę notatek itp.
       } else {
         console.error('Błąd dodawania notatki');
