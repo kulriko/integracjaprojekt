@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import NotePage from './components/NotePage';
+import "./App.css";
+import Counter from "./Counter";
 
 const App = () => {
   const [accessToken, setAccessToken] = useState('');
@@ -75,6 +77,7 @@ const App = () => {
   };
 
   return (
+    
     <div>
       <h1>Aplikacja notatek online</h1>
       {showLoginForm && (
@@ -86,8 +89,8 @@ const App = () => {
       {!showLoginForm && !showRegisterForm && !accessToken && (
         <div>
           <p>Witaj! Wybierz jedną z opcji:</p>
-          <button onClick={() => setShowLoginForm(true)}>Zaloguj</button>
-          <button onClick={() => setShowRegisterForm(true)}>Zarejestruj</button>
+          <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-2" onClick={() => setShowLoginForm(true)}>Zaloguj</button>
+          <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-2"onClick={() => setShowRegisterForm(true)}>Zarejestruj</button>
         </div>
       )}
       {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} />}
