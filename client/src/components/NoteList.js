@@ -17,30 +17,9 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
     setEditedNote((prevNote) => ({ ...prevNote, [name]: value }));
   };
 
-  // const handleAddNote = () => {
-  //   fetch('http://localhost:3001/api/notes', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Authorization': `Bearer ${accessToken}`, // Dodaj nagłówek Authorization z tokenem JWT
-  //     },
-  //     body: JSON.stringify(newNote),
-  //   })
-  //     .then((res) => {
-  //       if (res.status === 400) {
-  //         return res.json().then((data) => setFormErrors(data.errors));
-  //       }
-  //       return res.json();
-  //     })
-  //     .then((data) => {
-  //       if (data) {
-  //         setNotes((prevNotes) => [...prevNotes, data]);
-  //         setNewNote({ title: '', content: '' });
-  //         setFormErrors([]);
-  //       }
-  //     })
-  //     .catch((error) => console.log(error));
-  // };
+  const handleAddNoteClick = () => {
+    handleAddNote(newNote);
+  };
 
   const handleEditNote = (note) => {
     setEditedNote({ id: note._id, title: note.title, content: note.content });
@@ -101,7 +80,7 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
           value={newNote.content}
           onChange={handleInputChange}
         ></textarea>
-        <button onClick={handleAddNote}>Dodaj notatkę</button>
+        <button onClick={handleAddNoteClick}>Dodaj notatkę</button>
       </div>
       {formErrors.length > 0 && (
         <ul>

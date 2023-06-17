@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NoteList from './NoteList';
 
-const NotePage = ({ token }) => {
+const NotePage = ({ token, handleAddNote }) => { // Dodaj handleAddNote jako argument
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const NotePage = ({ token }) => {
   return (
     <div>
       <h2>Strona notatek</h2>
-      <NoteList notes={notes} />
+      <NoteList notes={notes} accessToken={token} handleAddNote={handleAddNote} />
     </div>
   );
 };
