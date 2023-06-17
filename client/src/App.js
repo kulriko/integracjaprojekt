@@ -23,7 +23,7 @@ const App = () => {
         setAccessToken(data.accessToken);
         setShowLoginForm(false);
       } else {
-        console.error('Błąd logowania');
+        console.error('Błąd logdsadowania');
       }
     } catch (error) {
       console.error('Wystąpił błąd podczas logowania', error);
