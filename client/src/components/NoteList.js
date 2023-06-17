@@ -97,7 +97,7 @@ const NoteList = ({ notes, accessToken }) => {
         />
         <textarea
           name="content"
-          placeholder="Treść"
+          placeholder="Treśćddddsadsadadd"
           value={newNote.content}
           onChange={handleInputChange}
         ></textarea>
