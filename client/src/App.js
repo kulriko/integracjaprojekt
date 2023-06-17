@@ -79,7 +79,7 @@ const App = () => {
   return (
     
     <div>
-      <h1>Aplikacja notatek online</h1>
+      <h1 className ="h2 display-2 d-flex align-items-center justify-content-center">Aplikacja notatek online</h1>
       {showLoginForm && (
         <LoginForm handleLogin={handleLogin} setShowLoginForm={setShowLoginForm} />
       )}
@@ -90,8 +90,8 @@ const App = () => {
         <div className="mt-5 px-3 py-4 border d-flex flex-column align-items-center">
             <h2 className="h2 display-2">Witaj! Wybierz jedną z opcji:</h2>
             <div className="d-flex justify-content-center">
-              <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-2" onClick={() => setShowLoginForm(true)}>Zaloguj</button>
-              <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-2" onClick={() => setShowRegisterForm(true)}>Zarejestruj</button>
+              <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-5" onClick={() => setShowLoginForm(true)}>Zaloguj</button>
+              <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-5" onClick={() => setShowRegisterForm(true)}>Zarejestruj</button>
             </div>
         </div>
 
