@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const [newNote, setNewNote] = useState({ title: '', content: '' });
   const [editedNote, setEditedNote] = useState({ id: '', title: '', content: '' });
   const [deletedNote, setDeletedNote] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
-  const [notesList, setNotes] = React.useState(notes);
+  const [notesList, setNotesList] = useState(notes);
+
+  useEffect(() => {
+    setNotesList(notes);
+  }, [notes]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -20,6 +24,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const handleAddNoteClick = () => {
     const note = { ...newNote};
     handleAddNote(note);
+    setNewNote({ title: '', content: '' });
   };
 
   const handleEditNote = (note) => {
@@ -37,10 +42,10 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        const updatedNotes = notes.map((note) =>
-          note._id === data._id ? data : note
-        );
-        setNotes(updatedNotes);
+        // const updatedNotes = notesList.map((note) =>
+        //   note._id === data._id ? data : note
+        // );
+        //setNotes(updatedNotes);
         setEditedNote({ id: '', title: '', content: '' });
       })
       .catch((error) => console.log(error));
@@ -61,7 +66,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
       .then((data) => {
         if (data.success) {
           const updatedNotes = notesList.filter((note) => note._id !== deletedNote._id);
-          setNotes(updatedNotes);
+          setNotesList(updatedNotes);
           setDeletedNote(null);
         }
       })
@@ -94,7 +99,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
           ))}
         </ul>
       )}
-      {notes.map((note) => {
+      {notesList.map((note) => {
         if (note.username === username) {
           return (
             <div key={note._id}>
