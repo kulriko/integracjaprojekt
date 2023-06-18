@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
-const NoteList = ({ notes, accessToken, handleAddNote }) => {
-  const [newNote, setNewNote] = useState({ title: '', content: '', username: accessToken });
+const NoteList = ({ notes, username, handleAddNote }) => {
+  const [newNote, setNewNote] = useState({ title: '', content: '' });
   const [editedNote, setEditedNote] = useState({ id: '', title: '', content: '' });
   const [deletedNote, setDeletedNote] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
@@ -18,13 +18,9 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
   };
 
   const handleAddNoteClick = () => {
-    const noteWithUsername = { ...newNote, username: accessToken };
-    console.log("sdfsd");
-    console.log(newNote.username);
-    console.log("asdd");
-    handleAddNote(noteWithUsername);
+    const note = { ...newNote};
+    handleAddNote(note);
   };
-  
 
   const handleEditNote = (note) => {
     setEditedNote({ id: note._id, title: note.title, content: note.content });
@@ -48,13 +44,13 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
       })
       .catch((error) => console.log(error));
   };
-  
+
   const handleDeleteNote = (note) => {
     setDeletedNote(note);
   };
-  
+
   const handleConfirmDelete = () => {
-    fetch(`http://localhost:3001/api/notes/${deletedNote._id}/${accessToken}`, {
+    fetch(`http://localhost:3001/api/notes/${deletedNote._id}`, {
       method: 'DELETE',
     })
       .then((res) => res.json())
@@ -67,8 +63,6 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
       })
       .catch((error) => console.log(error));
   };
-    
-  
 
   return (
     <div>
@@ -97,10 +91,7 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
         </ul>
       )}
       {notes.map((note) => {
-        console.log("usu");
-        console.log(accessToken.username)
-        console.log("use");
-        if (note.username === accessToken.username) {
+        if (note.username === username) {
           return (
             <div key={note._id}>
               <h3>{note.title}</h3>
@@ -113,8 +104,6 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
           return null;
         }
       })}
-
-
       {editedNote.id && (
         <div>
           <input

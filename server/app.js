@@ -39,7 +39,6 @@ const authenticateToken = (req, res, next) => {
       return res.sendStatus(403);
     }
     req.user = user;
-    req.user.username = user.username;
     return next();
   });
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import NoteList from './NoteList';
 
-const NotePage = ({ token, handleAddNote }) => {
+const NotePage = ({ token, handleAddNote, username }) => {
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const NotePage = ({ token, handleAddNote }) => {
   return (
     <div>
       <h2>Strona notatek</h2>
-      <NoteList notes={notes} accessToken={token} handleAddNote={handleAddNoteAndUpdateList} />
+      <NoteList notes={notes} username={username} accessToken={token} handleAddNote={handleAddNoteAndUpdateList} />
     </div>
   );
 };
