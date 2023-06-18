@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const LoginForm = ({ handleLogin }) => {
+const LoginForm = ({ handleLogin, setShowLoginForm}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -41,6 +41,7 @@ const LoginForm = ({ handleLogin }) => {
         </div>
         <button type="submit">Zaloguj</button>
       </form>
+      <button onClick={() => setShowLoginForm(false)}>Anuluj</button>
     </div>
   );
 };
