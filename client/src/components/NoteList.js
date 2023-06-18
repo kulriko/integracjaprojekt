@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const NoteList = ({ notes, username, handleAddNote }) => {
+const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const [newNote, setNewNote] = useState({ title: '', content: '' });
   const [editedNote, setEditedNote] = useState({ id: '', title: '', content: '' });
   const [deletedNote, setDeletedNote] = useState(null);
@@ -31,6 +31,7 @@ const NoteList = ({ notes, username, handleAddNote }) => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
       },
       body: JSON.stringify(editedNote),
     })
@@ -52,11 +53,14 @@ const NoteList = ({ notes, username, handleAddNote }) => {
   const handleConfirmDelete = () => {
     fetch(`http://localhost:3001/api/notes/${deletedNote._id}`, {
       method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          const updatedNotes = notes.filter((note) => note._id !== deletedNote._id);
+          const updatedNotes = notesList.filter((note) => note._id !== deletedNote._id);
           setNotes(updatedNotes);
           setDeletedNote(null);
         }
