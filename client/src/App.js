@@ -99,7 +99,7 @@ const App = () => {
       )}
       {!showLoginForm && !showRegisterForm && !accessToken && (
         <div className="mt-5 px-3 py-4 border d-flex flex-column align-items-center">
-            <h2 className="h2 display-2">Witaj! Wybierz jedną z opcji:</h2>
+            <h2 className="h2 display-2">Witaj! Zaloguj się, bądź zarejestruj.</h2>
             <div className="d-flex justify-content-center">
               <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-5" onClick={() => setShowLoginForm(true)}>Zaloguj</button>
               <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-5" onClick={() => setShowRegisterForm(true)}>Zarejestruj</button>
