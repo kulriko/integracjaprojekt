@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const NoteList = ({ notes, accessToken, handleAddNote }) => {
-  const [newNote, setNewNote] = useState({ title: '', content: '' });
+  const [newNote, setNewNote] = useState({ title: '', content: '', username: accessToken });
   const [editedNote, setEditedNote] = useState({ id: '', title: '', content: '' });
   const [deletedNote, setDeletedNote] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
@@ -18,8 +18,13 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
   };
 
   const handleAddNoteClick = () => {
-    handleAddNote(newNote);
+    const noteWithUsername = { ...newNote, username: accessToken };
+    console.log("sdfsd");
+    console.log(newNote.username);
+    console.log("asdd");
+    handleAddNote(noteWithUsername);
   };
+  
 
   const handleEditNote = (note) => {
     setEditedNote({ id: note._id, title: note.title, content: note.content });
@@ -38,30 +43,32 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
         const updatedNotes = notes.map((note) =>
           note._id === data._id ? data : note
         );
-        setNotes((prevNotes) => [...prevNotes, newNote]);
+        setNotes(updatedNotes);
         setEditedNote({ id: '', title: '', content: '' });
       })
       .catch((error) => console.log(error));
   };
-
+  
   const handleDeleteNote = (note) => {
     setDeletedNote(note);
   };
-
+  
   const handleConfirmDelete = () => {
-    fetch(`http://localhost:3001/api/notes/${deletedNote._id}`, {
+    fetch(`http://localhost:3001/api/notes/${deletedNote._id}/${accessToken}`, {
       method: 'DELETE',
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
           const updatedNotes = notes.filter((note) => note._id !== deletedNote._id);
-          setNotes((prevNotes) => [...prevNotes, newNote]);
+          setNotes(updatedNotes);
           setDeletedNote(null);
         }
       })
       .catch((error) => console.log(error));
   };
+    
+  
 
   return (
     <div>
@@ -90,7 +97,10 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
         </ul>
       )}
       {notes.map((note) => {
-        if (note.userId === accessToken) {
+        console.log("usu");
+        console.log(accessToken.username)
+        console.log("use");
+        if (note.username === accessToken.username) {
           return (
             <div key={note._id}>
               <h3>{note.title}</h3>
@@ -103,6 +113,7 @@ const NoteList = ({ notes, accessToken, handleAddNote }) => {
           return null;
         }
       })}
+
 
       {editedNote.id && (
         <div>

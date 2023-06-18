@@ -39,6 +39,7 @@ const NotePage = ({ token, handleAddNote }) => {
       .then((data) => setNotes(data))
       .catch((error) => console.log(error));
   };
+  
 
   return (
     <div>

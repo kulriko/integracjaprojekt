@@ -21,7 +21,8 @@ const App = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        setAccessToken(data.accessToken);
+        const token = data.accessToken;
+        setAccessToken({ username, token }); // Ustaw poprawnie obiekt accessToken
         setShowLoginForm(false);
       } else {
         console.error('Błąd logowania');
@@ -63,10 +64,16 @@ const App = () => {
         },
         body: JSON.stringify(note),
       });
-
+  
       if (response.ok) {
+        console.log("note");
+        console.log(note);
+        console.log("ne");
         console.log('Dodano notatkę');
         const newNote = await response.json();
+        console.log("newnote");
+        console.log(newNote);
+        console.log("newew");
         setNotes((prevNotes) => [...prevNotes, newNote]);
       } else {
         console.error('Błąd dodawania notatki');
@@ -75,6 +82,7 @@ const App = () => {
       console.error('Wystąpił błąd podczas dodawania notatki', error);
     }
   };
+  
 
 
   return (

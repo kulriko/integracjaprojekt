@@ -17,6 +17,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 const Note = mongoose.model('Note', {
   title: String,
   content: String,
+  username: String,
 });
 
 app.use(express.json());
@@ -38,9 +39,12 @@ const authenticateToken = (req, res, next) => {
       return res.sendStatus(403);
     }
     req.user = user;
-    next();
+    req.user.username = user.username;
+    return next();
   });
 };
+
+
 
 // Trasa GET dla pobrania wszystkich notatek (chroniona)
 app.get('/api/notes', authenticateToken, async (req, res) => {
@@ -67,16 +71,15 @@ app.post(
     }
 
     const { title, content } = req.body;
-    const userId = req.user.id;
+    const username = req.user.username;
 
     try {
-      const note = new Note({ title, content, userId }); // Dodajemy userId
+      const note = new Note({ title, content, username }); 
       await note.save();
       res.json(note);
     } catch (err) {
       res.status(500).json({ error: 'Wystąpił błąd podczas tworzenia notatki' });
     }
-
   }
 );
 
