@@ -109,7 +109,6 @@ const App = () => {
         </Container>
       </Navbar>
         )}
-        {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} notes={notes} username={username} />}
         <>
         {!showLoginForm && !showRegisterForm && !accessToken && (
         <Carousel>
