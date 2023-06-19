@@ -42,12 +42,10 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         
         const updatedNotes = notesList.map((note) =>
           note._id === data._id ? data : note
         );
-        console.log(updatedNotes);
         setNotesList(updatedNotes);
         setEditedNote({ id: '', title: '', content: '' });
       })

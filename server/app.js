@@ -96,7 +96,6 @@ app.put('/api/notes/:id', authenticateToken, async (req, res) => {
       content,
     }, { new: true });
     res.json(updatedNote);
-    console.log(updatedNote);
   } catch (err) {
     res.status(500).json({ error: 'Wystąpił błąd podczas aktualizacji notatki' });
   }
