@@ -111,6 +111,7 @@ const App = () => {
         )}
         {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} notes={notes} username={username} />}
         <>
+        {!showLoginForm && !showRegisterForm && !accessToken && (
         <Carousel>
       <Carousel.Item interval={2500}>
         <img height = "600"
@@ -148,8 +149,12 @@ const App = () => {
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
+        )}
+        {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} notes={notes} username={username} />}
         </>
+        
       </>
+      
   );
 };
 
