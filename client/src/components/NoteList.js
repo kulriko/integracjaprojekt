@@ -76,11 +76,9 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
       })
       .catch((error) => console.log(error));
   };
-  
-
   return (
     <div>
-      <h2>Lista notatek</h2>
+      <h2>Nowa notatka:</h2>
       <div>
         <input
           type="text"
@@ -104,6 +102,8 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
           ))}
         </ul>
       )}
+      <br></br>
+      <h2>Lista notatek:</h2>
       {notesList.map((note) => {
         if (note.username === username) {
           return (

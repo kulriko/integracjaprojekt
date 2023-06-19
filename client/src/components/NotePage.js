@@ -55,7 +55,7 @@ const NotePage = ({ token, handleAddNote, username }) => {
         </Container>
       </Navbar>
     <div>
-      <h2>Strona notatek</h2>
+      <h1>Strona notatek</h1>
       <NoteList notes={notes} username={username} accessToken={token} handleAddNote={handleAddNoteAndUpdateList} />
     </div>
     </>
