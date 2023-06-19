@@ -109,11 +109,11 @@ const App = () => {
             <Navbar.Brand>
               <img height="30" className="d-block w-100" src={require('./images/logo-no-background.png')} alt="NoteIt logo" />
             </Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Toggle className="mb-2" aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="ms-auto me-2">
-                <Button variant="info" className="fs-6 text-white fw-bold text-with-outline me-2 mb-2" href ="#register" onClick={() => setShowRegisterForm(true)}>Zarejestruj się</Button>{' '}
-                <Button variant="info" className="fs-6 text-white fw-bold text-with-outline me-2 mb-2" href="#login" onClick={() => setShowLoginForm(true)}>Zaloguj się</Button>{' '}
+              <Nav className="ms-auto">
+                <Button variant="info" className="text-white fw-bold text-with-outline me-2 mb-2" href ="#register" onClick={() => setShowRegisterForm(true)}>Zarejestruj się</Button>{' '}
+                <Button variant="info" className="text-white fw-bold text-with-outline me-2 mb-2" href="#login" onClick={() => setShowLoginForm(true)}>Zaloguj się</Button>{' '}
               </Nav>
             </Navbar.Collapse>
           </Container>
