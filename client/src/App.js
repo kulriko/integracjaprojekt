@@ -5,6 +5,7 @@ import NotePage from './components/NotePage';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Carousel from 'react-bootstrap/Carousel';
 
 
 const App = () => {
@@ -97,7 +98,7 @@ const App = () => {
         {!showLoginForm && !showRegisterForm && !accessToken && (
       <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
         <Container>
-          <Navbar.Brand href="#home">NoteIt</Navbar.Brand>
+          <Navbar.Brand>NoteIt</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
@@ -109,6 +110,45 @@ const App = () => {
       </Navbar>
         )}
         {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} notes={notes} username={username} />}
+        <>
+        <Carousel>
+      <Carousel.Item interval={2500}>
+        <img height = "600"
+          className="d-block w-100"
+          src={require('./images/1.jpg')}
+          alt="First slide"
+        />
+        <Carousel.Caption>
+          <h3>First slide label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item interval={2500}>
+        <img height = "600"
+          className="d-block w-100"
+          src={require('./images/2.jpg')}
+          alt="Second slide"
+        />
+        <Carousel.Caption>
+          <h3>Second slide label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img height = "600"
+          className="d-block w-100"
+          src={require('./images/3.jpg')}
+          alt="Third slide"
+        />
+        <Carousel.Caption>
+          <h3>Third slide label</h3>
+          <p>
+            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+          </p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
+        </>
       </>
   );
 };

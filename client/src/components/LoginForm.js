@@ -34,7 +34,7 @@ const LoginForm = ({ handleLogin, setShowLoginForm}) => {
     <>
     <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
       <Container>
-        <Navbar.Brand href="#home">NoteIt</Navbar.Brand>
+        <Navbar.Brand>NoteIt</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
         </Navbar.Collapse>

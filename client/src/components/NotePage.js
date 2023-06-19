@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import NoteList from './NoteList';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const NotePage = ({ token, handleAddNote, username }) => {
   const [notes, setNotes] = useState([]);
@@ -41,10 +44,20 @@ const NotePage = ({ token, handleAddNote, username }) => {
   };
 
   return (
+    <>
+        <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
+      <Container>
+        <Navbar.Brand>NoteIt</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
     <div>
       <h2>Strona notatek</h2>
       <NoteList notes={notes} username={username} accessToken={token} handleAddNote={handleAddNoteAndUpdateList} />
     </div>
+    </>
   );
 };
 
