@@ -4,7 +4,6 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
 
-
 const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const [newNote, setNewNote] = useState({ title: '', content: '' });
   const [editedNote, setEditedNote] = useState({ id: '', title: '', content: '' });
@@ -93,115 +92,121 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
 
   return (
     <>
-    <div className="mt-3 form-border mx-auto w-50">
-    <Form>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
-      <Form.Label>Tytuł notatki:</Form.Label>
-      <Form.Control
-          placeholder="Tytuł"
-          aria-label="Tytuł notatki: "
-          type="text"
-          name="title"
-          placeholder="Tytuł"
-          value={newNote.title}
-          onChange={handleInputChange}
-      />
-      </Form.Group>
-      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>Treść notatki:</Form.Label>
-        <Form.Control 
-        placeholder = "Treść"
-        as="textarea"
-        rows={3}
-        name="content"
-        placeholder="Treść"
-        value={newNote.content}
-        onChange={handleInputChange}
-        />
-      </Form.Group>
+      <div className="mt-3 form-border mx-auto w-50">
+        <Form>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Tytuł notatki:</Form.Label>
+            <Form.Control
+              placeholder="Tytuł"
+              aria-label="Tytuł notatki: "
+              type="text"
+              name="title"
+              placeholder="Tytuł"
+              value={newNote.title}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Treść notatki:</Form.Label>
+            <Form.Control
+              placeholder="Treść"
+              as="textarea"
+              rows={3}
+              name="content"
+              placeholder="Treść"
+              value={newNote.content}
+              onChange={handleInputChange}
+            />
+          </Form.Group>
           <div className="d-flex justify-content-left">
-            <Button onClick={handleAddNoteClick}className="me-2" variant="primary">
+            <Button onClick={handleAddNoteClick} className="me-2" variant="primary">
               Dodaj notatkę
             </Button>
           </div>
-      </Form>
+        </Form>
       </div>
-      <Accordion defaultActiveKey="0">
-      <Accordion.Item eventKey="0">
-        <Accordion.Header>Accordion Item #1</Accordion.Header>
-        <Accordion.Body>
-        {formErrors.length > 0 && (
-        <ul>
-          {formErrors.map((error) => (
-            <li key={error.param}>{error.msg}</li>
-          ))}
-        </ul>
-      )}
-        </Accordion.Body>
-      </Accordion.Item>
-      <Accordion.Item eventKey="1">
-        <Accordion.Header>Accordion Item #2</Accordion.Header>
-        <Accordion.Body>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion>
-    <div>
-      {formErrors.length > 0 && (
-        <ul>
-          {formErrors.map((error) => (
-            <li key={error.param}>{error.msg}</li>
-          ))}
-        </ul>
-      )}
-      <br></br>
-      <h2>Lista notatek:</h2>
-      {notesList.map((note) => {
-        if (note.username === username) {
-          return (
-            <div key={note._id}>
-              <h3>{note.title}</h3>
-              <p>{note.content}</p>
-              <button onClick={() => handleEditNote(note)}>Edytuj</button>
-              <button onClick={() => handleDeleteNote(note)}>Usuń</button>
-              {selectedNoteId === note._id && (
-                <div>
-                  <input
-                    type="text"
-                    name="title"
-                    value={editedNote.title}
-                    onChange={handleEditInputChange}
-                  />
-                  <textarea
-                    name="content"
-                    value={editedNote.content}
-                    onChange={handleEditInputChange}
-                  ></textarea>
-                  <br></br>
-                  <button onClick={handleUpdateNote}>Zapisz zmiany</button>
-                  <button onClick={handleCancelEdit}>Anuluj</button>
-                </div>
-              )}
-              {selectedDeleteNoteId === note._id && (
-                <div>
-                  <p>Czy na pewno chcesz usunąć notatkę "{note.title}"?</p>
-                  <button onClick={handleConfirmDelete}>Tak</button>
-                  <button onClick={() => setSelectedDeleteNoteId(null)}>Anuluj</button>
-                </div>
-              )}
-            </div>
-          );
-        } else {
-          return null;
-        }
-      })}
-    </div>
+      <div className="mt-3 mx-auto" style={{ width: '60%' }}>
+      <Accordion defaultActiveKey="0" className="d-inline-block w-100">
+        {notesList.map((note, index) => {
+          if (note.username === username) {
+            return (
+              <Accordion.Item eventKey={index.toString()} key={note._id}>
+                <Accordion.Header>{note.title}</Accordion.Header>
+                <Accordion.Body>
+                
+                  <p>{note.content}</p>
+                  <Button onClick={() => handleEditNote(note)} className="me-2" variant="success">
+                  Edytuj
+                  </Button>
+                  <Button onClick={() => handleDeleteNote(note)}className="me-2" variant="danger">
+                  Usuń
+                  </Button>
+                
+                  {selectedNoteId === note._id && (
+                    <>
+                      <div className="mt-3 form-border mx-auto w-50">
+                        <Form>
+                          <Form.Group className="mb-3">
+                            <Form.Label>Tytuł notatki:</Form.Label>
+                            <Form.Control
+                              placeholder="Tytuł"
+                              aria-label="Tytuł notatki: "
+                              type="text"
+                              name="title"
+                              value={editedNote.title}
+                              onChange={handleEditInputChange}
+                            />
+                          </Form.Group>
+                        </Form>
+                        <Form>
+                          <Form.Group className="mb-3">
+                            <Form.Label>Treść notatki:</Form.Label>
+                            <Form.Control
+                              placeholder="Treść"
+                              as="textarea"
+                              rows={3}
+                              name="content"
+                              placeholder="Treść"
+                              value={editedNote.content}
+                              onChange={handleEditInputChange}
+                            />
+                          </Form.Group>
+                        </Form>
+                      </div>
+                      <div className="d-flex justify-content-center">
+                      <Button onClick={handleUpdateNote} className="me-2" variant="success">
+                        Zapisz zmiany
+                      </Button>
+                      <Button onClick={handleCancelEdit} className="me-2" variant="secondary">
+                        Anuluj
+                      </Button>
+                      </div>
+                    </>
+                  )}
+                  {selectedDeleteNoteId === note._id && (
+                    <>
+                      <div className="text-center">
+                        <p>Czy na pewno chcesz usunąć notatkę "{note.title}"?</p>
+                      </div>
+                      <div className="d-flex justify-content-center">
+                        <Button onClick={handleConfirmDelete} className="me-2" variant="danger">
+                        Tak
+                        </Button>
+                        <Button onClick={() => setSelectedDeleteNoteId(null)} className="me-2" variant="secondary">
+                          Anuluj
+                          </Button>
+                      </div>
+                    </>
+                  )}
+                </Accordion.Body>
+              </Accordion.Item>
+            );
+          } else {
+            return null;
+          }
+        })}
+      </Accordion>
+      </div>
     </>
   );
 };
