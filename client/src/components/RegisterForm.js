@@ -23,9 +23,11 @@ const RegisterForm = ({ handleRegister, setShowRegisterForm }) => {
 
   return (
     <>
-      <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
+      <Navbar expand="lg" style={{backgroundColor: "#F7D65A"}}>
         <Container>
-          <Navbar.Brand>NoteIt</Navbar.Brand>
+          <Navbar.Brand>
+            <img height = "30" className="d-block w-100" src={require('../images/logo-no-background.png')} alt="NoteIt logo"/>
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           </Navbar.Collapse>

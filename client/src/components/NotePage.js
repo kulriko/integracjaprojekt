@@ -45,14 +45,16 @@ const NotePage = ({ token, handleAddNote, username }) => {
 
   return (
     <>
-        <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
-      <Container>
-        <Navbar.Brand>NoteIt</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+      <Navbar expand="lg" style={{backgroundColor: "#F7D65A"}}>
+        <Container>
+          <Navbar.Brand>
+            <img height = "30" className="d-block w-100" src={require('../images/logo-no-background.png')} alt="NoteIt logo"/>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     <div>
       <h2>Strona notatek</h2>
       <NoteList notes={notes} username={username} accessToken={token} handleAddNote={handleAddNoteAndUpdateList} />

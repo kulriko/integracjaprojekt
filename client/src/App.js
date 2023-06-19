@@ -6,6 +6,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Carousel from 'react-bootstrap/Carousel';
+import Button from 'react-bootstrap/Button';
+import './components/Style.css';
 
 
 const App = () => {
@@ -89,71 +91,78 @@ const App = () => {
 
   return (
     <>
-    {showLoginForm && (
-          <LoginForm handleLogin={handleLogin} setShowLoginForm={setShowLoginForm} />
-        )}
-        {showRegisterForm && (
-          <RegisterForm handleRegister={handleRegister} setShowRegisterForm={setShowRegisterForm} />
-        )}
+      {showLoginForm && (
+        <LoginForm
+          handleLogin={handleLogin}
+          setShowLoginForm={setShowLoginForm}
+        />
+      )}
+      {showRegisterForm && (
+        <RegisterForm
+          handleRegister={handleRegister}
+          setShowRegisterForm={setShowRegisterForm}
+        />
+      )}
+      {!showLoginForm && !showRegisterForm && !accessToken && (
+        <Navbar expand="lg" style={{ backgroundColor: "#F7D65A" }}>
+          <Container>
+            <Navbar.Brand>
+              <img height="30" className="d-block w-100" src={require('./images/logo-no-background.png')} alt="NoteIt logo" />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ms-auto me-2">
+                <Button variant="info" className="fs-6 text-white fw-bold text-with-outline me-2 mb-2" href ="#register" onClick={() => setShowRegisterForm(true)}>Zarejestruj się</Button>{' '}
+                <Button variant="info" className="fs-6 text-white fw-bold text-with-outline me-2 mb-2" href="#login" onClick={() => setShowLoginForm(true)}>Zaloguj się</Button>{' '}
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      )}
+      <>
         {!showLoginForm && !showRegisterForm && !accessToken && (
-      <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
-        <Container>
-          <Navbar.Brand>NoteIt</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto">
-              <Nav.Link href="#login" onClick={() => setShowLoginForm(true)}>Zaloguj się</Nav.Link>
-              <Nav.Link href="#link" onClick={() => setShowRegisterForm(true)}>Zarejestruj się</Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
-        )}
-        <>
-        {!showLoginForm && !showRegisterForm && !accessToken && (
-        <Carousel>
-      <Carousel.Item interval={2500}>
-        <img height = "600"
-          className="d-block w-100"
-          src={require('./images/1.jpg')}
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item interval={2500}>
-        <img height = "600"
-          className="d-block w-100"
-          src={require('./images/2.jpg')}
-          alt="Second slide"
-        />
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img height = "600"
-          className="d-block w-100"
-          src={require('./images/3.jpg')}
-          alt="Third slide"
-        />
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
+          <Carousel>
+            <Carousel.Item interval={2500}>
+              <img height="600"
+                className="d-block w-100"
+                src={require('./images/1.jpg')}
+                alt="First slide"
+              />
+              <Carousel.Caption>
+                <h3>First slide label</h3>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item interval={2500}>
+              <img height="600"
+                className="d-block w-100"
+                src={require('./images/2.jpg')}
+                alt="Second slide"
+              />
+              <Carousel.Caption>
+                <h3>Second slide label</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img height="600"
+                className="d-block w-100"
+                src={require('./images/3.jpg')}
+                alt="Third slide"
+              />
+              <Carousel.Caption>
+                <h3>Third slide label</h3>
+                <p>
+                  Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                </p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
         )}
         {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} notes={notes} username={username} />}
-        </>
-        
       </>
-      
+    </>
+
   );
 };
 

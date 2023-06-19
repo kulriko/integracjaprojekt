@@ -32,14 +32,16 @@ const LoginForm = ({ handleLogin, setShowLoginForm}) => {
 
   return (
     <>
-    <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
-      <Container>
-        <Navbar.Brand>NoteIt</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+      <Navbar expand="lg" style={{backgroundColor: "#F7D65A"}}>
+        <Container>
+          <Navbar.Brand>
+            <img height = "30" className="d-block w-100" src={require('../images/logo-no-background.png')} alt="NoteIt logo"/>
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     <div className="mt-5 px-3 py-4 border d-flex flex-column align-items-center justify-content-center">
       <h2 className="h2 display-3">Formularz logowania</h2>
       <form onSubmit={handleSubmit}>
