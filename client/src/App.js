@@ -122,38 +122,41 @@ const App = () => {
       <>
         {!showLoginForm && !showRegisterForm && !accessToken && (
           <Carousel>
-            <Carousel.Item interval={2500}>
-              <img height="600"
-                className="d-block w-100"
+            <Carousel.Item interval={25000}>
+              <img
+                className="d-block w-100 img-fluid"
+                style = {{ height: '80vh' }}
                 src={require('./images/1.jpg')}
                 alt="First slide"
               />
-              <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              <Carousel.Caption className = "text-with-outline">
+                <h3>Zapisz swoje notatki</h3>
+                <p>Nasza strona umożliwia zapisywanie notatek.</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item interval={2500}>
-              <img height="600"
-                className="d-block w-100"
+              <img
+                className="d-block w-100 img-fluid"
+                style = {{ height: '80vh' }}
                 src={require('./images/2.jpg')}
                 alt="Second slide"
               />
-              <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              <Carousel.Caption className = "text-with-outline">
+                <h3>Edytuj swoje notatki</h3>
+                <p>Nasza strona umożliwia edytowanie notatek.</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-              <img height="600"
-                className="d-block w-100"
+              <img
+                className="d-block w-100 img-fluid"
+                style = {{ height: '80vh' }}
                 src={require('./images/3.jpg')}
                 alt="Third slide"
               />
-              <Carousel.Caption>
-                <h3>Third slide label</h3>
+              <Carousel.Caption className = "text-with-outline">
+                <h3>Usuwaj niepotrzebne notatki.</h3>
                 <p>
-                  Praesent commodo cursus magna, vel scelerisque nisl consectetur.
+                  Nasza strona umożliwia usuwanie notatek.
                 </p>
               </Carousel.Caption>
             </Carousel.Item>
