@@ -3,7 +3,6 @@ import NoteList from './NoteList';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useHistory } from 'react-router-dom';
 
 const NotePage = ({ token, handleAddNote, username }) => {
   const [notes, setNotes] = useState([]);
@@ -45,9 +44,9 @@ const NotePage = ({ token, handleAddNote, username }) => {
 
   const handleLogout = () => {
     // Usunięcie tokena uwierzytelniającego (np. token JWT)
-    //localStorage.removeItem('token');
-    // Przekierowanie użytkownika na stronę logowania
-    //history.push('/');
+    localStorage.removeItem('token');
+    // Odświeżenie strony
+    window.location.reload();
   };
 
   return (
