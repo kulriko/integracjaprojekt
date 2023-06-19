@@ -64,7 +64,9 @@ const NotePage = ({ token, handleAddNote, username }) => {
           <Navbar.Toggle className = "mb-2" aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-            <Button variant="danger" className="text-white fw-bold text-with-outline me-2 mb-2" onClick={handleLogout}>Wyloguj</Button>{' '}
+            <Button variant="danger" className="text-white fw-bold text-with-outline mt-2 me-2 mb-2" onClick={handleLogout}>
+              Wyloguj
+              </Button>{' '}
             </Nav>
           </Navbar.Collapse>
         </Container>

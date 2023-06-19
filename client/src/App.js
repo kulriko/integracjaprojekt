@@ -112,8 +112,12 @@ const App = () => {
             <Navbar.Toggle className="mb-2" aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
               <Nav className="ms-auto">
-                <Button variant="info" className="text-white fw-bold text-with-outline me-2 mb-2" href ="#register" onClick={() => setShowRegisterForm(true)}>Zarejestruj się</Button>{' '}
-                <Button variant="info" className="text-white fw-bold text-with-outline me-2 mb-2" href="#login" onClick={() => setShowLoginForm(true)}>Zaloguj się</Button>{' '}
+                <Button variant="primary" className="text-white fw-bold text-with-outline mt-2 me-2 mb-2" href ="#register" onClick={() => setShowRegisterForm(true)}>
+                  Zarejestruj się
+                  </Button>{' '}
+                <Button variant="primary" className="text-white fw-bold text-with-outline mt-2 me-2 mb-2" href="#login" onClick={() => setShowLoginForm(true)}>
+                  Zaloguj się
+                  </Button>{' '}
               </Nav>
             </Navbar.Collapse>
           </Container>
@@ -121,15 +125,22 @@ const App = () => {
       )}
       <>
         {!showLoginForm && !showRegisterForm && !accessToken && (
-          <Carousel>
+          <Carousel style={{ maxWidth: '1500px', height: '750px', margin: '0 auto'}}>
             <Carousel.Item interval={25000}>
               <img
                 className="d-block w-100 img-fluid"
-                style = {{ height: '80vh' }}
+                style={{ height: '100%', objectFit: 'cover' }}
                 src={require('./images/1.jpg')}
                 alt="First slide"
               />
-              <Carousel.Caption className = "text-with-outline">
+              <Carousel.Caption 
+              className = "text-with-outline"
+              style={{textAlign: 'center',
+              position: 'absolute',
+              bottom: '50%',
+              left: '50%',
+              transform: 'translate(-50%, 50%)'}}
+              className = "text-with-outline">
                 <h3>Zapisz swoje notatki</h3>
                 <p>Nasza strona umożliwia zapisywanie notatek.</p>
               </Carousel.Caption>
@@ -137,23 +148,37 @@ const App = () => {
             <Carousel.Item interval={2500}>
               <img
                 className="d-block w-100 img-fluid"
-                style = {{ height: '80vh' }}
+                style={{ height: '100%', objectFit: 'cover' }}
                 src={require('./images/2.jpg')}
                 alt="Second slide"
               />
-              <Carousel.Caption className = "text-with-outline">
+              <Carousel.Caption 
+              className = "text-with-outline"
+              style={{textAlign: 'center',
+              position: 'absolute',
+              bottom: '50%',
+              left: '50%',
+              transform: 'translate(-50%, 50%)'}}
+              className = "text-with-outline">
                 <h3>Edytuj swoje notatki</h3>
                 <p>Nasza strona umożliwia edytowanie notatek.</p>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-              <img
+            <img
                 className="d-block w-100 img-fluid"
-                style = {{ height: '80vh' }}
+                style={{ height: '100%', objectFit: 'cover' }}
                 src={require('./images/3.jpg')}
-                alt="Third slide"
+                alt="Second slide"
               />
-              <Carousel.Caption className = "text-with-outline">
+              <Carousel.Caption 
+              className = "text-with-outline"
+              style={{textAlign: 'center',
+              position: 'absolute',
+              bottom: '50%',
+              left: '50%',
+              transform: 'translate(-50%, 50%)'}}
+              className = "text-with-outline">
                 <h3>Usuwaj niepotrzebne notatki.</h3>
                 <p>
                   Nasza strona umożliwia usuwanie notatek.
