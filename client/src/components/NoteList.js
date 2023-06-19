@@ -42,14 +42,20 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        // const updatedNotes = notesList.map((note) =>
-        //   note._id === data._id ? data : note
-        // );
-        //setNotes(updatedNotes);
+        console.log(data)
+        
+        const updatedNotes = notesList.map((note) =>
+          note._id === data._id ? data : note
+        );
+        console.log(updatedNotes);
+        setNotesList(updatedNotes);
         setEditedNote({ id: '', title: '', content: '' });
       })
       .catch((error) => console.log(error));
   };
+  
+  
+  
 
   const handleDeleteNote = (note) => {
     setDeletedNote(note);
@@ -63,15 +69,16 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
       },
     })
       .then((res) => res.json())
-      .then((data) => {
-        if (data.success) {
-          const updatedNotes = notesList.filter((note) => note._id !== deletedNote._id);
-          setNotesList(updatedNotes);
-          setDeletedNote(null);
-        }
+      .then(() => {
+        const updatedNotes = notesList.filter(
+          (note) => note._id !== deletedNote._id
+        );
+        setNotesList(updatedNotes);
+        setDeletedNote(null);
       })
       .catch((error) => console.log(error));
   };
+  
 
   return (
     <div>

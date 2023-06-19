@@ -94,8 +94,9 @@ app.put('/api/notes/:id', authenticateToken, async (req, res) => {
     const updatedNote = await Note.findByIdAndUpdate(req.params.id, {
       title,
       content,
-    });
+    }, { new: true });
     res.json(updatedNote);
+    console.log(updatedNote);
   } catch (err) {
     res.status(500).json({ error: 'Wystąpił błąd podczas aktualizacji notatki' });
   }
