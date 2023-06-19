@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
+import Form from 'react-bootstrap/Form';
 
 const LoginForm = ({ handleLogin, setShowLoginForm}) => {
   const [username, setUsername] = useState('');
@@ -41,32 +42,32 @@ const LoginForm = ({ handleLogin, setShowLoginForm}) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    <div className="mt-5 px-3 py-4 border d-flex flex-column align-items-center justify-content-center">
-      <h2 className="h2 display-3">Formularz logowania</h2>
-      <form onSubmit={handleSubmit}>
-      <div className="d-flex flex-column mb-2">
-        <label className="small-label" htmlFor="username">
-          Nazwa użytkownika:
-        </label>
-          <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)} required />
-        </div>
-        <div className="d-flex flex-column mb-2">
-        <label className="small-label" htmlFor="password">
-        Hasło:
-        </label>
-          <input
-          type="password"
-          value={password} onChange={(e) => setPassword(e.target.value)} required />
-        </div>
-        <div className="d-flex justify-content-between w-100">
-        <button type="submit" className="mr-2">Zaloguj</button>
-        <button onClick={() => setShowLoginForm(false)}>Anuluj</button>
-        </div>
-      </form>
-    </div>
+
+      <div className="mt-3 form-border mx-auto w-50">
+        <Form onSubmit={handleSubmit} className="text-left">
+        <Form.Label><h2>Zaloguj się:</h2></Form.Label>
+        <div style={{ border: "1px solid #ccc", borderRadius: "4px", padding: "10px" }}>
+          <Form.Group className="mb-3" controlId="formBasicUsername">
+            <Form.Label>Nazwa użytkownika:</Form.Label>
+            <Form.Control type="text" value={username} onChange={(e) => setUsername(e.target.value)} required placeholder = "Login"/>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Label>Hasło:</Form.Label>
+            <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Hasło" />
+          </Form.Group>
+
+          <div className="d-flex justify-content-center">
+            <Button className="me-2" variant="primary" type="submit">
+              Zaloguj się
+            </Button>
+            <Button className="me-2" onClick={() => setShowLoginForm(false)} variant="secondary" type="submit">
+              Anuluj
+            </Button>
+          </div>
+          </div>
+        </Form>
+      </div>
     </>
   );
 };
