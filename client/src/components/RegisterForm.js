@@ -35,8 +35,8 @@ const RegisterForm = ({ handleRegister, setShowRegisterForm }) => {
         </Container>
       </Navbar>
 
-      <div className="register-form-container mt-3 form-border">
-        <Form onSubmit={handleSubmit} style={{ maxWidth: "300px" }}>
+      <div className="mt-3 form-border mx-auto w-50">
+        <Form onSubmit={handleSubmit} className="text-left">
         <Form.Label><h2>Zarejestruj się:</h2></Form.Label>
         <div style={{ border: "1px solid #ccc", borderRadius: "4px", padding: "10px" }}>
           <Form.Group className="mb-3" controlId="formBasicUsername">
