@@ -32,6 +32,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const handleEditNote = (note) => {
     setEditedNote({ id: note._id, title: note.title, content: note.content });
     setSelectedNoteId(note._id);
+    setSelectedDeleteNoteId(null);
   };
 
   const handleUpdateNote = () => {
@@ -58,6 +59,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const handleDeleteNote = (note) => {
     setDeletedNote(note);
     setSelectedDeleteNoteId(note._id);
+    setSelectedNoteId(null);
   };
 
   const handleConfirmDelete = () => {
@@ -77,6 +79,11 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
         setSelectedDeleteNoteId(null);
       })
       .catch((error) => console.log(error));
+  };
+
+  const handleCancelEdit = () => {
+    setEditedNote({ id: '', title: '', content: '' });
+    setSelectedNoteId(null);
   };
 
   return (
@@ -128,7 +135,9 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
                     value={editedNote.content}
                     onChange={handleEditInputChange}
                   ></textarea>
+                  <br></br>
                   <button onClick={handleUpdateNote}>Zapisz zmiany</button>
+                  <button onClick={handleCancelEdit}>Anuluj</button>
                 </div>
               )}
               {selectedDeleteNoteId === note._id && (
