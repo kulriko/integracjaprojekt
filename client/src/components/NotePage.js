@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import NoteList from './NoteList';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from 'react-bootstrap/Button';
 
 const NotePage = ({ token, handleAddNote, username }) => {
   const [notes, setNotes] = useState([]);
@@ -54,21 +56,20 @@ const NotePage = ({ token, handleAddNote, username }) => {
       <Navbar expand="lg" style={{ backgroundColor: '#F7D65A' }}>
         <Container>
           <Navbar.Brand>
-            <img
-              height="30"
-              className="d-block w-100"
+            <img height="30" className="d-block w-100"
               src={require('../images/logo-no-background.png')}
               alt="NoteIt logo"
             />
           </Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Toggle className = "mb-2" aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <NavDropdown.Item onClick={handleLogout}>Wyloguj</NavDropdown.Item>
+            <Nav className="ms-auto">
+            <Button variant="danger" className="text-white fw-bold text-with-outline me-2 mb-2" onClick={handleLogout}>Wyloguj</Button>{' '}
+            </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
       <div>
-        <h1>Strona notatek</h1>
         <NoteList
           notes={notes}
           username={username}

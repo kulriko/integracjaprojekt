@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
+
 
 const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const [newNote, setNewNote] = useState({ title: '', content: '' });
@@ -87,24 +92,67 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   };
 
   return (
-    <div>
-      <h2>Nowa notatka:</h2>
-      <div>
-        <input
+    <>
+    <div className="mt-3 form-border mx-auto w-50">
+    <Form>
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+      <Form.Label>Tytuł notatki:</Form.Label>
+      <Form.Control
+          placeholder="Tytuł"
+          aria-label="Tytuł notatki: "
           type="text"
           name="title"
           placeholder="Tytuł"
           value={newNote.title}
           onChange={handleInputChange}
+      />
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>Treść notatki:</Form.Label>
+        <Form.Control 
+        placeholder = "Treść"
+        as="textarea"
+        rows={3}
+        name="content"
+        placeholder="Treść"
+        value={newNote.content}
+        onChange={handleInputChange}
         />
-        <textarea
-          name="content"
-          placeholder="Treść"
-          value={newNote.content}
-          onChange={handleInputChange}
-        ></textarea>
-        <button onClick={handleAddNoteClick}>Dodaj notatkę</button>
+      </Form.Group>
+          <div className="d-flex justify-content-left">
+            <Button onClick={handleAddNoteClick}className="me-2" variant="primary">
+              Dodaj notatkę
+            </Button>
+          </div>
+      </Form>
       </div>
+      <Accordion defaultActiveKey="0">
+      <Accordion.Item eventKey="0">
+        <Accordion.Header>Accordion Item #1</Accordion.Header>
+        <Accordion.Body>
+        {formErrors.length > 0 && (
+        <ul>
+          {formErrors.map((error) => (
+            <li key={error.param}>{error.msg}</li>
+          ))}
+        </ul>
+      )}
+        </Accordion.Body>
+      </Accordion.Item>
+      <Accordion.Item eventKey="1">
+        <Accordion.Header>Accordion Item #2</Accordion.Header>
+        <Accordion.Body>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
+    <div>
       {formErrors.length > 0 && (
         <ul>
           {formErrors.map((error) => (
@@ -154,6 +202,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
         }
       })}
     </div>
+    </>
   );
 };
 
