@@ -7,6 +7,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const [formErrors, setFormErrors] = useState([]);
   const [notesList, setNotesList] = useState(notes);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
+  const [selectedDeleteNoteId, setSelectedDeleteNoteId] = useState(null);
 
   useEffect(() => {
     setNotesList(notes);
@@ -56,6 +57,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
 
   const handleDeleteNote = (note) => {
     setDeletedNote(note);
+    setSelectedDeleteNoteId(note._id);
   };
 
   const handleConfirmDelete = () => {
@@ -72,6 +74,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
         );
         setNotesList(updatedNotes);
         setDeletedNote(null);
+        setSelectedDeleteNoteId(null);
       })
       .catch((error) => console.log(error));
   };
@@ -128,19 +131,19 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
                   <button onClick={handleUpdateNote}>Zapisz zmiany</button>
                 </div>
               )}
+              {selectedDeleteNoteId === note._id && (
+                <div>
+                  <p>Czy na pewno chcesz usunąć notatkę "{note.title}"?</p>
+                  <button onClick={handleConfirmDelete}>Tak</button>
+                  <button onClick={() => setSelectedDeleteNoteId(null)}>Anuluj</button>
+                </div>
+              )}
             </div>
           );
         } else {
           return null;
         }
       })}
-      {deletedNote && (
-        <div>
-          <p>Czy na pewno chcesz usunąć notatkę "{deletedNote.title}"?</p>
-          <button onClick={handleConfirmDelete}>Tak</button>
-          <button onClick={() => setDeletedNote(null)}>Anuluj</button>
-        </div>
-      )}
     </div>
   );
 };
