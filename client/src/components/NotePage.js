@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import NoteList from './NoteList';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 
 const NotePage = ({ token, handleAddNote, username }) => {

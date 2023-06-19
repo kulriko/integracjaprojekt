@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
+import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
+import Form from 'react-bootstrap/Form';
 
 const RegisterForm = ({ handleRegister, setShowRegisterForm }) => {
   const [username, setUsername] = useState('');
@@ -33,43 +34,28 @@ const RegisterForm = ({ handleRegister, setShowRegisterForm }) => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    <div className="mt-5 px-3 py-4 border d-flex flex-column align-items-center justify-content-center">
-      <h2 className="h2 display-3">Formularz rejestracji</h2>
-      <form onSubmit={handleSubmit} className="d-flex flex-column align-items-center">
-        <div className="d-flex flex-column mb-2">
-          <label className="small-label" htmlFor="username">
-            Nazwa użytkownika:
-          </label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div className="d-flex flex-column mb-2">
-          <label className="small-label" htmlFor="password">
-            Hasło:
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)} />
-        </div>
-        <div className="d-flex justify-content-between w-100">
-          <button type="submit" className="mr-2">Zarejestruj</button>
-          <button onClick={() => setShowRegisterForm(false)}>Anuluj</button>
-        </div>
-      </form>
-    </div>
+      <Form className = "ms-auto" onSubmit={handleSubmit}>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Nazwa użytkownika: </Form.Label>
+        <Form.Control type="text" value={username} onChange={
+          (e) => setUsername(e.target.value)}
+          placeholder="Login" />
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="formBasicPassword">
+        <Form.Label>Hasło: </Form.Label>
+        <Form.Control type="password" value={password}onChange={
+          (e) => setPassword(e.target.value)} placeholder="Hasło" />
+      </Form.Group>
+      <Button className = "me-2" variant="primary" type="submit">
+        Zarejestruj
+      </Button>
+      <Button className = "me-2" onClick={() => setShowRegisterForm(false)} variant="secondary" type="submit">
+        Anuluj
+      </Button>
+    </Form>
           </>
   );
-  
-  
-  
-    
-  
 };
 
 export default RegisterForm;
