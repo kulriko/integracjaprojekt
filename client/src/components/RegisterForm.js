@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const RegisterForm = ({ handleRegister, setShowRegisterForm }) => {
   const [username, setUsername] = useState('');
@@ -19,8 +22,17 @@ const RegisterForm = ({ handleRegister, setShowRegisterForm }) => {
   };
 
   return (
+    <>
+      <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
+        <Container>
+          <Navbar.Brand href="#home">NoteIt</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     <div className="mt-5 px-3 py-4 border d-flex flex-column align-items-center justify-content-center">
-      <h2 className="h2 display-2">Formularz rejestracji</h2>
+      <h2 className="h2 display-3">Formularz rejestracji</h2>
       <form onSubmit={handleSubmit} className="d-flex flex-column align-items-center">
         <div className="d-flex flex-column mb-2">
           <label className="small-label" htmlFor="username">
@@ -41,8 +53,7 @@ const RegisterForm = ({ handleRegister, setShowRegisterForm }) => {
             type="password"
             id="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className="d-flex justify-content-between w-100">
           <button type="submit" className="mr-2">Zarejestruj</button>
@@ -50,6 +61,7 @@ const RegisterForm = ({ handleRegister, setShowRegisterForm }) => {
         </div>
       </form>
     </div>
+          </>
   );
   
   

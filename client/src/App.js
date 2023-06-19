@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import NotePage from './components/NotePage';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 
 const App = () => {
@@ -84,25 +87,29 @@ const App = () => {
 
 
   return (
-    <div>
-      <h1>Aplikacja notatek online</h1>
-      {showLoginForm && (
-        <LoginForm handleLogin={handleLogin} setShowLoginForm={setShowLoginForm} />
-      )}
-      {showRegisterForm && (
-        <RegisterForm handleRegister={handleRegister} setShowRegisterForm={setShowRegisterForm} />
-      )}
-      {!showLoginForm && !showRegisterForm && !accessToken && (
-        <div className="mt-5 px-3 py-4 border d-flex flex-column align-items-center">
-            <h2 className="h2 display-2">Witaj! Zaloguj się, bądź zarejestruj.</h2>
-            <div className="d-flex justify-content-center">
-              <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-5" onClick={() => setShowLoginForm(true)}>Zaloguj</button>
-              <button className="btn btn-primary btn-lg mx-3 px-5 py-3 mt-5" onClick={() => setShowRegisterForm(true)}>Zarejestruj</button>
-            </div>
-        </div>
-      )}
-      {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} notes={notes} username={username} />}
-    </div>
+    <>
+    {showLoginForm && (
+          <LoginForm handleLogin={handleLogin} setShowLoginForm={setShowLoginForm} />
+        )}
+        {showRegisterForm && (
+          <RegisterForm handleRegister={handleRegister} setShowRegisterForm={setShowRegisterForm} />
+        )}
+        {!showLoginForm && !showRegisterForm && !accessToken && (
+      <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
+        <Container>
+          <Navbar.Brand href="#home">NoteIt</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ms-auto">
+              <Nav.Link href="#login" onClick={() => setShowLoginForm(true)}>Zaloguj się</Nav.Link>
+              <Nav.Link href="#link" onClick={() => setShowRegisterForm(true)}>Zarejestruj się</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+        )}
+        {accessToken && <NotePage token={accessToken} handleAddNote={handleAddNote} notes={notes} username={username} />}
+      </>
   );
 };
 

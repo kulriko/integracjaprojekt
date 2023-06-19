@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 const LoginForm = ({ handleLogin, setShowLoginForm}) => {
   const [username, setUsername] = useState('');
@@ -28,21 +31,42 @@ const LoginForm = ({ handleLogin, setShowLoginForm}) => {
   };
 
   return (
-    <div>
-      <h2>Formularz logowania</h2>
+    <>
+    <Navbar expand="lg" style={{backgroundColor: "#4f9ee5"}}>
+      <Container>
+        <Navbar.Brand href="#home">NoteIt</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+    <div className="mt-5 px-3 py-4 border d-flex flex-column align-items-center justify-content-center">
+      <h2 className="h2 display-3">Formularz logowania</h2>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nazwa użytkownika:</label>
-          <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+      <div className="d-flex flex-column mb-2">
+        <label className="small-label" htmlFor="username">
+          Nazwa użytkownika:
+        </label>
+          <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)} required />
         </div>
-        <div>
-          <label>Hasło:</label>
-          <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+        <div className="d-flex flex-column mb-2">
+        <label className="small-label" htmlFor="password">
+        Hasło:
+        </label>
+          <input
+          type="password"
+          value={password} onChange={(e) => setPassword(e.target.value)} required />
         </div>
-        <button type="submit">Zaloguj</button>
+        <div className="d-flex justify-content-between w-100">
+        <button type="submit" className="mr-2">Zaloguj</button>
+        <button onClick={() => setShowLoginForm(false)}>Anuluj</button>
+        </div>
       </form>
-      <button onClick={() => setShowLoginForm(false)}>Anuluj</button>
     </div>
+    </>
   );
 };
 
