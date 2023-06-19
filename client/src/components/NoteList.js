@@ -6,6 +6,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const [deletedNote, setDeletedNote] = useState(null);
   const [formErrors, setFormErrors] = useState([]);
   const [notesList, setNotesList] = useState(notes);
+  const [selectedNoteId, setSelectedNoteId] = useState(null);
 
   useEffect(() => {
     setNotesList(notes);
@@ -22,13 +23,14 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   };
 
   const handleAddNoteClick = () => {
-    const note = { ...newNote};
+    const note = { ...newNote };
     handleAddNote(note);
     setNewNote({ title: '', content: '' });
   };
 
   const handleEditNote = (note) => {
     setEditedNote({ id: note._id, title: note.title, content: note.content });
+    setSelectedNoteId(note._id);
   };
 
   const handleUpdateNote = () => {
@@ -42,18 +44,15 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        
         const updatedNotes = notesList.map((note) =>
           note._id === data._id ? data : note
         );
         setNotesList(updatedNotes);
         setEditedNote({ id: '', title: '', content: '' });
+        setSelectedNoteId(null);
       })
       .catch((error) => console.log(error));
   };
-  
-  
-  
 
   const handleDeleteNote = (note) => {
     setDeletedNote(note);
@@ -76,6 +75,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
       })
       .catch((error) => console.log(error));
   };
+
   return (
     <div>
       <h2>Nowa notatka:</h2>
@@ -112,28 +112,28 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
               <p>{note.content}</p>
               <button onClick={() => handleEditNote(note)}>Edytuj</button>
               <button onClick={() => handleDeleteNote(note)}>Usuń</button>
+              {selectedNoteId === note._id && (
+                <div>
+                  <input
+                    type="text"
+                    name="title"
+                    value={editedNote.title}
+                    onChange={handleEditInputChange}
+                  />
+                  <textarea
+                    name="content"
+                    value={editedNote.content}
+                    onChange={handleEditInputChange}
+                  ></textarea>
+                  <button onClick={handleUpdateNote}>Zapisz zmiany</button>
+                </div>
+              )}
             </div>
           );
         } else {
           return null;
         }
       })}
-      {editedNote.id && (
-        <div>
-          <input
-            type="text"
-            name="title"
-            value={editedNote.title}
-            onChange={handleEditInputChange}
-          />
-          <textarea
-            name="content"
-            value={editedNote.content}
-            onChange={handleEditInputChange}
-          ></textarea>
-          <button onClick={handleUpdateNote}>Zapisz zmiany</button>
-        </div>
-      )}
       {deletedNote && (
         <div>
           <p>Czy na pewno chcesz usunąć notatkę "{deletedNote.title}"?</p>
