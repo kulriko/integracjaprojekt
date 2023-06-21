@@ -102,6 +102,18 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     setSelectedNoteId(null);
   };
 
+  const handleExport = () => {
+    const jsonData = JSON.stringify(notes);
+
+    const element = document.createElement('a');
+    const file = new Blob([jsonData], { type: 'application/json' });
+    element.href = URL.createObjectURL(file);
+    element.download = 'notes.json';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
   return (
     <>
       <div className="mt-3 form-border mx-auto w-50">
@@ -136,8 +148,8 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
               <input ref={inputRef} className="d-none" type="file" onChange={handleFileChange} />
               Importuj
             </Button>
-            <Button className="me-2" variant="primary">
-              Eksportuj
+            <Button onClick={handleExport} className="me-2" variant="primary">
+              Eksportuj (json)
             </Button>
           </div>
         </Form>
