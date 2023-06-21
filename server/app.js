@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const { body, validationResult } = require('express-validator');
+const fs = require('fs');
 
 // Połączenie z bazą danych MongoDB
 mongoose.connect(process.env.MONGODB_URI, {
@@ -169,6 +170,28 @@ app.post('/api/login', async (req, res) => {
 app.get('/api/protected', authenticateToken, (req, res) => {
   res.json({ message: 'Oto chroniony zasób' });
 });
+
+
+// Trasa GET dla eksportu wszystkich notatek do pliku JSON (chroniona)
+app.get('/api/notes/export', authenticateToken, async (req, res) => {
+  try {
+    const notes = await Note.find({ username: req.user.username });
+
+    // Zapisz notatki do pliku JSON
+    fs.writeFile('notes.json', JSON.stringify(notes), (err) => {
+      if (err) {
+        console.error('Wystąpił błąd podczas zapisywania notatek do pliku JSON', err);
+        return res.status(500).json({ error: 'Wystąpił błąd podczas eksportu notatek' });
+      }
+      console.log('Notatki zostały wyeksportowane do pliku JSON');
+      res.json({ success: true });
+    });
+  } catch (err) {
+    console.error('Wystąpił błąd podczas pobierania notatek', err);
+    res.status(500).json({ error: 'Wystąpił błąd podczas eksportu notatek' });
+  }
+});
+
 
 // Uruchomienie serwera na porcie 3001
 app.listen(3001, () => {

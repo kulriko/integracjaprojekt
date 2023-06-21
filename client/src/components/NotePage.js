@@ -51,6 +51,18 @@ const NotePage = ({ token, handleAddNote, username }) => {
     window.location.reload();
   };
 
+  const handleExport = () => {
+    const jsonData = JSON.stringify(notes);
+
+    const element = document.createElement('a');
+    const file = new Blob([jsonData], { type: 'application/json' });
+    element.href = URL.createObjectURL(file);
+    element.download = 'notes.json';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
   return (
     <>
       <Navbar expand="lg" style={{ backgroundColor: '#F7D65A' }}>
@@ -78,6 +90,11 @@ const NotePage = ({ token, handleAddNote, username }) => {
           accessToken={token}
           handleAddNote={handleAddNoteAndUpdateList}
         />
+      </div>
+      <div className="d-grid gap-2">
+        <Button variant="primary" size="lg" onClick={handleExport}>
+          Eksportuj notatki
+        </Button>
       </div>
     </>
   );

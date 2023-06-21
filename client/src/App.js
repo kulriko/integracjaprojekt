@@ -54,6 +54,7 @@ const App = () => {
         const data = await response.json();
         setAccessToken(data.accessToken);
         setShowRegisterForm(false);
+        setUsername(username);
       } else {
         console.error('Błąd rejestracji');
       }

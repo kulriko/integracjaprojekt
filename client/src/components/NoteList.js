@@ -101,7 +101,6 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
               aria-label="Tytuł notatki: "
               type="text"
               name="title"
-              placeholder="Tytuł"
               value={newNote.title}
               onChange={handleInputChange}
             />
@@ -113,7 +112,6 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
               as="textarea"
               rows={3}
               name="content"
-              placeholder="Treść"
               value={newNote.content}
               onChange={handleInputChange}
             />
@@ -166,7 +164,6 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
                               as="textarea"
                               rows={3}
                               name="content"
-                              placeholder="Treść"
                               value={editedNote.content}
                               onChange={handleEditInputChange}
                             />

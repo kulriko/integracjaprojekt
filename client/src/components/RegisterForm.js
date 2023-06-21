@@ -41,12 +41,12 @@ const RegisterForm = ({ handleRegister, setShowRegisterForm }) => {
         <div style={{ border: "1px solid #ccc", borderRadius: "4px", padding: "10px" }}>
           <Form.Group className="mb-3" controlId="formBasicUsername">
             <Form.Label>Nazwa użytkownika:</Form.Label>
-            <Form.Control type="text"  value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Login" />
+            <Form.Control type="text"  value={username} onChange={(e) => setUsername(e.target.value)} required placeholder="Login" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Label>Hasło:</Form.Label>
-            <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Hasło" />
+            <Form.Control type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Hasło" />
           </Form.Group>
 
           <div className="d-flex justify-content-center">
