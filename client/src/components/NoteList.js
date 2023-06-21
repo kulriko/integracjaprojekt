@@ -114,6 +114,23 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     document.body.removeChild(element);
   };
 
+  const handleAddNoteFromJson = () => {
+    fetch('http://api.weatherapi.com/v1/current.json?key=f2f18035d8134cad94d160445232106&q=Lublin') //obsluga api
+      .then((response) => response.json())
+      .then((data) => {
+        const { location, current } = data; // dekonstrukcja JSON
+        const note = {
+          title: location.name,
+          content: `Temperatura: ${current.temp_c}°C\nTemperatura odczuwalna: ${current.feelslike_c}°C\n Wiatr: ${current.wind_kph} km/h`,
+        };
+        handleAddNote(note);
+        })
+      .catch((error) => console.log(error));
+  }
+
+     
+
+
   return (
     <>
       <div className="mt-3 form-border mx-auto w-50">
@@ -143,6 +160,9 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
           <div className="d-flex justify-content-left">
             <Button onClick={handleAddNoteClick} className="me-2" variant="primary">
               Dodaj notatkę
+            </Button>
+            <Button onClick={handleAddNoteFromJson} className="me-2" variant="primary">
+              Dodaj notatkę pogodową
             </Button>
             <Button onClick={handleUpload} className="me-2" variant="primary">
               <input ref={inputRef} className="d-none" type="file" onChange={handleFileChange} />
