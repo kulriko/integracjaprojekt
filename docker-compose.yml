@@ -4,7 +4,7 @@ services:
     build: ./server
     container_name: server_backend
     ports:
-      - '4000:4000'
+      - '3001:3001'
     volumes:
       - ./server:/app
       - /app/node_modules
