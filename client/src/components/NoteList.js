@@ -12,6 +12,8 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const [notesList, setNotesList] = useState(notes);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
   const [selectedDeleteNoteId, setSelectedDeleteNoteId] = useState(null);
+  const [importedJsonFileContent, setImportedJsonFileContent] = useState(null);
+  const [importedXmlFileContent, setImportedXmlFileContent] = useState(null);
 
   useEffect(() => {
     setNotesList(notes);
@@ -138,6 +140,8 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     return xmlContent;
   };
 
+  
+
   return (
     <>
       <div className="mt-3 form-border mx-auto w-50">
@@ -170,7 +174,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
             </Button>
             <Button onClick={handleUpload} className="me-2" variant="primary">
               <input ref={inputRef} className="d-none" type="file" onChange={handleFileChange} />
-              Importuj
+              Importuj notatki
             </Button>
             <Button onClick={handleJsonExport} className="me-2" variant="primary">
               Eksportuj notatki (JSON)
