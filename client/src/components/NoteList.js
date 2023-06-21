@@ -103,8 +103,9 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   };
 
   const handleExport = () => {
-    const jsonData = JSON.stringify(notes);
-
+    const currentUserNotes = notes.filter((note) => note.username === username);
+    const jsonData = JSON.stringify(currentUserNotes);
+  
     const element = document.createElement('a');
     const file = new Blob([jsonData], { type: 'application/json' });
     element.href = URL.createObjectURL(file);
@@ -113,6 +114,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     element.click();
     document.body.removeChild(element);
   };
+  
 
   return (
     <>
@@ -149,7 +151,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
               Importuj
             </Button>
             <Button onClick={handleExport} className="me-2" variant="primary">
-              Eksportuj (json)
+              Eksportuj notatki (json)
             </Button>
           </div>
         </Form>
