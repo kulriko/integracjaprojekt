@@ -102,7 +102,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     setSelectedNoteId(null);
   };
 
-  const handleExport = () => {
+  const handleJsonExport = () => {
     const currentUserNotes = notes.filter((note) => note.username === username);
     const jsonData = JSON.stringify(currentUserNotes);
   
@@ -115,6 +115,28 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     document.body.removeChild(element);
   };
   
+  const handleXmlExport = () => {
+    const currentUserNotes = notes.filter((note) => note.username === username);
+
+    const xmlContent = generateXml(currentUserNotes);
+    const element = document.createElement('a');
+    const file = new Blob([xmlContent], { type: 'application/xml' });
+    element.href = URL.createObjectURL(file);
+    element.download = 'notes.xml';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+  };
+
+  const generateXml = (notes) => {
+    let xmlContent = '<?xml version="1.0" encoding="UTF-8"?>\n<notes>\n';
+    for (let i = 0; i < notes.length; i++) {
+      xmlContent += `  <note>\n    <title>${notes[i].title}</title>\n    <content>${notes[i].content}</content>\n  </note>\n`;
+    }
+    xmlContent += '</notes>';
+
+    return xmlContent;
+  };
 
   return (
     <>
@@ -150,8 +172,11 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
               <input ref={inputRef} className="d-none" type="file" onChange={handleFileChange} />
               Importuj
             </Button>
-            <Button onClick={handleExport} className="me-2" variant="primary">
-              Eksportuj notatki (json)
+            <Button onClick={handleJsonExport} className="me-2" variant="primary">
+              Eksportuj notatki (JSON)
+            </Button>
+            <Button onClick={handleXmlExport} className="me-2" variant="primary">
+              Eksportuj notatki (xml)
             </Button>
           </div>
         </Form>

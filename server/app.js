@@ -192,6 +192,40 @@ app.get('/api/notes/export', authenticateToken, async (req, res) => {
   }
 });
 
+// Trasa GET dla eksportu wszystkich notatek do pliku XML (chroniona)
+app.get('/api/notes/export', authenticateToken, async (req, res) => {
+  try {
+    const notes = await Note.find({ username: req.user.username });
+
+    // Tworzenie dokumentu XML
+    let xmlText = '<?xml version="1.0" encoding="UTF-8"?>\n';
+    xmlText += '<notes>\n';
+
+    // Dodawanie notatek do dokumentu XML
+    notes.forEach(note => {
+      xmlText += '  <note>\n';
+      xmlText += `    <title>${escapeXml(note.title)}</title>\n`;
+      xmlText += `    <content>${escapeXml(note.content)}</content>\n`;
+      xmlText += '  </note>\n';
+    });
+
+    xmlText += '</notes>';
+
+    // Zapisz notatki do pliku XML
+    fs.writeFile('notes.xml', xmlText, (err) => {
+      if (err) {
+        console.error('Wystąpił błąd podczas zapisywania notatek do pliku XML', err);
+        return res.status(500).json({ error: 'Wystąpił błąd podczas eksportu notatek' });
+      }
+      console.log('Notatki zostały wyeksportowane do pliku XML');
+      res.json({ success: true });
+    });
+
+  } catch (err) {
+    console.error('Wystąpił błąd podczas pobierania notatek', err);
+    res.status(500).json({ error: 'Wystąpił błąd podczas eksportu notatek' });
+  }
+});
 
 // Uruchomienie serwera na porcie 3001
 app.listen(3001, () => {

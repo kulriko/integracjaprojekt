@@ -8,6 +8,9 @@
     "react-router-dom": "^6.13.0",
     "react-scripts": "^5.0.1",
     "react-typography": "^0.16.23",
-    "typography": "^0.16.21"
+    "typography": "^0.16.21",
+    "xml2js": "^0.6.0",
+    "xmlbuilder": "^15.1.1",
+    "xmlbuilder2": "^3.1.1"
   }
 }
