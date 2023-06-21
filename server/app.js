@@ -227,80 +227,80 @@ app.get('/api/notes/export', authenticateToken, async (req, res) => {
   }
 });
 
-// Trasa POST dla importu notatek z pliku JSON (chroniona)
-app.post('/api/notes/import/json', authenticateToken, (req, res) => {
-  const { fileContent } = req.body;
+// // Trasa POST dla importu notatek z pliku JSON (chroniona)
+// app.post('/api/notes/import/json', authenticateToken, (req, res) => {
+//   const { fileContent } = req.body;
 
-  try {
-    const notes = JSON.parse(fileContent);
-    // Zapisz notatki do bazy danych
-    Note.insertMany(notes, (err, result) => {
-      if (err) {
-        console.error('Wystąpił błąd podczas importowania notatek z pliku JSON', err);
-        return res.status(500).json({ error: 'Wystąpił błąd podczas importu notatek' });
-      }
-      console.log('Notatki zostały zaimportowane z pliku JSON');
-      res.json({ success: true });
-    });
-  } catch (err) {
-    console.error('Wystąpił błąd podczas przetwarzania pliku JSON', err);
-    res.status(400).json({ error: 'Błąd podczas przetwarzania pliku JSON' });
-  }
-});
+//   try {
+//     const notes = JSON.parse(fileContent);
+//     // Zapisz notatki do bazy danych
+//     Note.insertMany(notes, (err, result) => {
+//       if (err) {
+//         console.error('Wystąpił błąd podczas importowania notatek z pliku JSON', err);
+//         return res.status(500).json({ error: 'Wystąpił błąd podczas importu notatek' });
+//       }
+//       console.log('Notatki zostały zaimportowane z pliku JSON');
+//       res.json({ success: true });
+//     });
+//   } catch (err) {
+//     console.error('Wystąpił błąd podczas przetwarzania pliku JSON', err);
+//     res.status(400).json({ error: 'Błąd podczas przetwarzania pliku JSON' });
+//   }
+// });
 
-// Trasa GET dla importu notatek w formacie JSON (chroniona)
-app.post('/api/notes/import/json', authenticateToken, async (req, res) => {
-  try {
-    const { fileContent } = req.body;
+// // Trasa GET dla importu notatek w formacie JSON (chroniona)
+// app.post('/api/notes/import/json', authenticateToken, async (req, res) => {
+//   try {
+//     const { fileContent } = req.body;
 
-    // Parsowanie zawartości pliku JSON
-    const importedNotes = JSON.parse(fileContent);
+//     // Parsowanie zawartości pliku JSON
+//     const importedNotes = JSON.parse(fileContent);
 
-    // Zapisanie notatek do bazy danych
-    for (const note of importedNotes) {
-      note.username = req.user.username;
-      const newNote = new Note(note);
-      await newNote.save();
-    }
+//     // Zapisanie notatek do bazy danych
+//     for (const note of importedNotes) {
+//       note.username = req.user.username;
+//       const newNote = new Note(note);
+//       await newNote.save();
+//     }
 
-    res.json({ success: true });
-  } catch (err) {
-    console.error('Wystąpił błąd podczas importowania notatek w formacie JSON', err);
-    res.status(500).json({ error: 'Wystąpił błąd podczas importu notatek' });
-  }
-});
+//     res.json({ success: true });
+//   } catch (err) {
+//     console.error('Wystąpił błąd podczas importowania notatek w formacie JSON', err);
+//     res.status(500).json({ error: 'Wystąpił błąd podczas importu notatek' });
+//   }
+// });
 
 // Trasa GET dla importu notatek w formacie XML (chroniona)
-app.post('/api/notes/import/xml', authenticateToken, async (req, res) => {
-  try {
-    const { fileContent } = req.body;
+// app.post('/api/notes/import/xml', authenticateToken, async (req, res) => {
+//   try {
+//     const { fileContent } = req.body;
 
-    // Parsowanie zawartości pliku XML
-    const xmlParser = require('fast-xml-parser');
-    const parsedXml = xmlParser.parse(fileContent);
+//     // Parsowanie zawartości pliku XML
+//     const xmlParser = require('fast-xml-parser');
+//     const parsedXml = xmlParser.parse(fileContent);
 
-    const importedNotes = parsedXml.notes.note;
+//     const importedNotes = parsedXml.notes.note;
 
-    // Sprawdzenie czy jest pojedyncza notatka lub tablica notatek
-    const notesArray = Array.isArray(importedNotes) ? importedNotes : [importedNotes];
+//     // Sprawdzenie czy jest pojedyncza notatka lub tablica notatek
+//     const notesArray = Array.isArray(importedNotes) ? importedNotes : [importedNotes];
 
-    // Zapisanie notatek do bazy danych
-    for (const note of notesArray) {
-      const { title, content } = note;
-      const newNote = new Note({
-        title,
-        content,
-        username: req.user.username,
-      });
-      await newNote.save();
-    }
+//     // Zapisanie notatek do bazy danych
+//     for (const note of notesArray) {
+//       const { title, content } = note;
+//       const newNote = new Note({
+//         title,
+//         content,
+//         username: req.user.username,
+//       });
+//       await newNote.save();
+//     }
 
-    res.json({ success: true });
-  } catch (err) {
-    console.error('Wystąpił błąd podczas importowania notatek w formacie XML', err);
-    res.status(500).json({ error: 'Wystąpił błąd podczas importu notatek' });
-  }
-});
+//     res.json({ success: true });
+//   } catch (err) {
+//     console.error('Wystąpił błąd podczas importowania notatek w formacie XML', err);
+//     res.status(500).json({ error: 'Wystąpił błąd podczas importu notatek' });
+//   }
+// });
 
 
 // Uruchomienie serwera na porcie 3001

@@ -3,6 +3,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Accordion from 'react-bootstrap/Accordion';
+import Modal from 'react-bootstrap/Modal';
 
 const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const [newNote, setNewNote] = useState({ title: '', content: '' });
@@ -12,8 +13,8 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const [notesList, setNotesList] = useState(notes);
   const [selectedNoteId, setSelectedNoteId] = useState(null);
   const [selectedDeleteNoteId, setSelectedDeleteNoteId] = useState(null);
-  const [importedJsonFileContent, setImportedJsonFileContent] = useState(null);
-  const [importedXmlFileContent, setImportedXmlFileContent] = useState(null);
+  const [showWeatherModal, setShowWeatherModal] = useState(false);
+  const [cityName, setCityName] = useState('');
 
   useEffect(() => {
     setNotesList(notes);
@@ -84,19 +85,8 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   };
 
   const inputRef = useRef(null);
-  const handleUpload = () => {
+  const handleImport = () => {
     inputRef.current?.click();
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      const fileContent = e.target.result;
-      console.log(fileContent); // Wyświetlanie zawartości pliku w konsoli
-      // Tutaj możesz przetworzyć zawartość pliku lub wywołać odpowiednie funkcje
-    };
-    reader.readAsText(file);
   };
 
   const handleCancelEdit = () => {
@@ -107,7 +97,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   const handleJsonExport = () => {
     const currentUserNotes = notes.filter((note) => note.username === username);
     const jsonData = JSON.stringify(currentUserNotes);
-  
+
     const element = document.createElement('a');
     const file = new Blob([jsonData], { type: 'application/json' });
     element.href = URL.createObjectURL(file);
@@ -116,7 +106,7 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
     element.click();
     document.body.removeChild(element);
   };
-  
+
   const handleXmlExport = () => {
     const currentUserNotes = notes.filter((note) => note.username === username);
 
@@ -141,20 +131,53 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
   };
 
   const handleAddNoteFromJson = () => {
-    fetch('http://api.weatherapi.com/v1/current.json?key=f2f18035d8134cad94d160445232106&q=Lublin') //obsluga api
+    fetch(`http://api.weatherapi.com/v1/current.json?key=f2f18035d8134cad94d160445232106&q=${cityName}`)
       .then((response) => response.json())
       .then((data) => {
-        const { location, current } = data; // dekonstrukcja JSON
+        const { location, current } = data;
         const note = {
           title: location.name,
           content: `Temperatura: ${current.temp_c}°C\nTemperatura odczuwalna: ${current.feelslike_c}°C\n Wiatr: ${current.wind_kph} km/h`,
         };
         handleAddNote(note);
-        })
+        setShowWeatherModal(false);
+      })
       .catch((error) => console.log(error));
-  }
+  };
 
-  
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const fileContent = e.target.result;
+      try {
+        const parsedNotes = JSON.parse(fileContent);
+        if (Array.isArray(parsedNotes)) {
+          parsedNotes.forEach((note) => {
+            const { title, content } = note;
+            const newNote = {
+              title,
+              content,
+              username: username,
+            };
+            handleAddNote(newNote);
+          });
+        } else {
+          const { title, content } = parsedNotes;
+          const newNote = {
+            title,
+            content,
+            username: username,
+          };
+          handleAddNote(newNote);
+        }
+      } catch (error) {
+        console.log('Błąd podczas parsowania pliku JSON', error);
+      }
+    };
+    reader.readAsText(file);
+  };
+
 
   return (
     <>
@@ -186,10 +209,10 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
             <Button onClick={handleAddNoteClick} className="me-2" variant="primary">
               Dodaj notatkę
             </Button>
-            <Button onClick={handleAddNoteFromJson} className="me-2" variant="primary">
+            <Button onClick={() => setShowWeatherModal(true)} className="me-2" variant="primary">
               Dodaj notatkę pogodową
             </Button>
-            <Button onClick={handleUpload} className="me-2" variant="primary">
+            <Button onClick={handleImport} className="me-2" variant="primary">
               <input ref={inputRef} className="d-none" type="file" onChange={handleFileChange} />
               Importuj notatki
             </Button>
@@ -258,19 +281,15 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
                       </>
                     )}
                     {selectedDeleteNoteId === note._id && (
-                      <>
-                        <div className="text-center">
-                          <p>Czy na pewno chcesz usunąć notatkę "{note.title}"?</p>
-                        </div>
-                        <div className="d-flex justify-content-center">
-                          <Button onClick={handleConfirmDelete} className="me-2" variant="danger">
-                            Tak
-                          </Button>
-                          <Button onClick={() => setSelectedDeleteNoteId(null)} className="me-2" variant="secondary">
-                            Anuluj
-                          </Button>
-                        </div>
-                      </>
+                      <div className="mt-3">
+                        <p>Czy na pewno chcesz usunąć tę notatkę?</p>
+                        <Button onClick={handleConfirmDelete} className="me-2" variant="danger">
+                          Potwierdź
+                        </Button>
+                        <Button onClick={() => setSelectedDeleteNoteId(null)} className="me-2" variant="secondary">
+                          Anuluj
+                        </Button>
+                      </div>
                     )}
                   </Accordion.Body>
                 </Accordion.Item>
@@ -281,6 +300,30 @@ const NoteList = ({ notes, username, handleAddNote, accessToken }) => {
           })}
         </Accordion>
       </div>
+      <Modal show={showWeatherModal} onHide={() => setShowWeatherModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Dodaj notatkę pogodową</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group className="mb-3">
+            <Form.Label>Nazwa miasta:</Form.Label>
+            <Form.Control
+              type="text"
+              name="cityName"
+              value={cityName}
+              onChange={(event) => setCityName(event.target.value)}
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={handleAddNoteFromJson} variant="primary">
+            Dodaj
+          </Button>
+          <Button onClick={() => setShowWeatherModal(false)} variant="secondary">
+            Anuluj
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
